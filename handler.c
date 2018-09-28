@@ -8,7 +8,6 @@ File Updated:
 
 #include <stdio.h>
 #include <stdlib.h>
-#include "myshell.h"
 
 int main(int argc, char *argv[]){
 	printf("\n\n");
@@ -16,13 +15,13 @@ int main(int argc, char *argv[]){
 	printf("Welcome to myShell.  A shell that is mine and yours too!!!!\n");
 	printf("===========================================================\n");
     char* myUser = getenv("USER");
-    echo(myUser);
+    
     printf("User: %s\n", myUser);
     
 	printf("\n\n");
 	printf("*** if you're interested in help at this point, type 'myhelp' and hit enter.\n");
     
-    char h[32];   //need to resolve possible buffer overflow
+    char h[4];   //need to resolve possible buffer overflow
     scanf("%s", &h);
 
     

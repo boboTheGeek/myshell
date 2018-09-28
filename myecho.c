@@ -7,3 +7,12 @@ File Updated:
 */
 
 #include <stdio.h>
+
+
+int echo(char* echoString){
+    
+    printf("%s\n", echoString);
+    return 0;
+    
+}
+
