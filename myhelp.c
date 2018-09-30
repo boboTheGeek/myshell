@@ -53,6 +53,7 @@ int help (){
             break;
             
         default:
+            printf("Sorry, not a valid choice.");
             break;
     }
     printf("\n");

@@ -39,10 +39,12 @@ int main(int argc, char *argv[]){
             help();
         } else if (strcmp((const char *)usrIn, "myquit") == 0){
             quit();
+        } else {
+            if (execv("/bin/", (char *const *) usrIn) == -1) {        //do normal shell commands
+                perror("external command issue\n");
+            }
         }
-        
     }
-
 }
 
 
