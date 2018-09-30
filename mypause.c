@@ -7,3 +7,9 @@ File Updated:
 */
 
 #include <stdio.h>
+
+int pause(){
+    int x;
+    scanf("%d", &x);
+    return 0;
+}

@@ -7,3 +7,8 @@ File Updated:
 */
 
 #include <stdio.h>
+
+int environ (){
+    printf("myenviron\n");
+    return 0;
+}

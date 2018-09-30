@@ -7,3 +7,8 @@ File Updated:
 */
 
 #include <stdio.h>
+
+int cd (){
+    printf("mycd\n");
+    return 0;
+}

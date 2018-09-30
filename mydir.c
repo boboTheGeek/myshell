@@ -7,3 +7,8 @@ File Updated:
 */
 
 #include <stdio.h>
+
+int dir (){
+    printf("mydir\n");
+    return 0;
+}

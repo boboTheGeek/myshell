@@ -7,3 +7,8 @@ File Updated:
 */
 
 #include <stdio.h>
+
+int quit (){
+    printf("myquit\n");
+    return 0;
+}
