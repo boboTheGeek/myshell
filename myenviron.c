@@ -8,7 +8,17 @@ File Updated:
 
 #include <stdio.h>
 
-int environ (){
-    printf("myenviron\n");
+extern char **environ;
+
+int environm (){
+    
+    int i = 1;
+    char *s = *environ;
+    
+    for (; s; i++) {
+        printf("%s\n", s);
+        s = *(environ+i);
+    }
+    
     return 0;
 }

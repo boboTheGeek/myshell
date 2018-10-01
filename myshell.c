@@ -13,14 +13,16 @@ File Updated:
 #include <string.h>
 #include "myshell.h"
 
+#define clear() printf("\033[H\033[J") 
+
 void doheader();
 void doprompt();
 
 int main(int argc, char *argv[]){
 	
-    doheader();
+    doheader();         //clean console and do intro wording for UI
     
-    char usrIn[128];   //need to resolve possible buffer overflow
+    char usrIn[128];    //need to resolve possible buffer overflow
     
     while (strcmp((const char *)usrIn, "close") != 0){
         
@@ -29,27 +31,32 @@ int main(int argc, char *argv[]){
         
         if (strcmp((const char *)usrIn, "mycd") == 0){
             cd();
-        } else if (strcmp((const char *)usrIn, "clear") == 0){
-            clrSc();
+        } else if (strcmp((const char *)usrIn, "myclear") == 0){
+            clear();
         } else if (strcmp((const char *)usrIn, "mydir") == 0){
             dir();
         } else if (strcmp((const char *)usrIn, "myenviron") == 0){
-            environ();
+            environm();
         } else if (strcmp((const char *)usrIn, "myhelp") == 0){
             help();
         } else if (strcmp((const char *)usrIn, "myquit") == 0){
             quit();
         } else {
-            if (execv("/bin/", (char *const *) usrIn) == -1) {        //do normal shell commands
-                perror("external command issue\n");
-            }
+           /* pid_t pid;
+            if ((pid = fork()) < 0) {        //do normal shell commands in fork
+                perror("non-myshell command fork issue\n");
+            } else if (pid == 0){
+                printf("do %s\n", usrIn);
+            } else {
+                wait(NULL);                   //wait for fork() to complete before going on
+            }*/
         }
     }
 }
 
 
 void doheader(){
-    clrSc();
+    clear();
     printf("\n");
     printf("===========================================================\n");
     printf("=Welcome to myShell.  A shell that is mine and yours too!!=\n");
@@ -74,13 +81,15 @@ void doprompt(){
     char *buf;
     char *ptr;
     path_max = pathconf(".", 256);
-    if (path_max == -1)
+    if (path_max == -1){
         size = 1024;
-    else if (path_max > 10240)
+    }
+    else if (path_max > 10240){
         size = 10240;
-    else
+    }
+    else {
         size = path_max;
-    
+    }
     
     for (buf = ptr = NULL; ptr == NULL; size *= 2)
     {
@@ -89,12 +98,11 @@ void doprompt(){
             printf("warning\n");
         }
         
-        
         ptr = getcwd(buf, size);
-        /*if (ptr == NULL && errno != ERANGE)
-         {
-         printf("warning\n");
-         }*/
+        //if (ptr == NULL && errno != ERANGE)
+         if(ptr == NULL){
+             printf("warning\n");
+         }
     }
     printf("%s$ ", buf);
     free (buf);
