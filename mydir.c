@@ -11,22 +11,19 @@ File Updated:
 #include <sys/types.h>
 
 int dir (){
-    struct dirent *de;  // Pointer for directory entry 
+
+    struct dirent *dent;  
+    DIR *dir = opendir("."); 
   
-    // opendir() returns a pointer of DIR type.  
-    DIR *dr = opendir("."); 
-  
-    if (dr == NULL)  // opendir returns NULL if couldn't open directory 
-    { 
-        printf("Could not open current directory" ); 
+    if (dir == NULL){                       //check if you can open the file
+        printf("Can't open directory" ); 
         return 0; 
     } 
   
-    // Refer http://pubs.opengroup.org/onlinepubs/7990989775/xsh/readdir.html 
-    // for readdir() 
-    while ((de = readdir(dr)) != NULL) 
-            printf("%s\n", de->d_name); 
+    while ((dent = readdir(dir)) != NULL){ //print the contents of directory
+            printf("%s\n", dent->d_name); 
+	}
   
-    closedir(dr);     
+    closedir(dir);     
     return 0; 
 }

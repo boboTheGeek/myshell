@@ -26,6 +26,19 @@ int help (){
     switch (choice) {
         case 0:
             printf("all");
+
+			FILE *rm;
+			rm = fopen("README.md", "r");
+			int c;
+			while (1) {
+				c = fgetc(rm);
+				if (feof(rm)) {
+					break;
+				}
+				printf("%c", c);
+			}
+
+			fclose(rm);
             break;
         case 1:
             printf("mycd");
