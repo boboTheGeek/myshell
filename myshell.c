@@ -7,26 +7,30 @@ File Updated:
 */
 
 #include <stdio.h>
-#include <stdlib.h>
-#include <dirent.h>
 #include <unistd.h>
 #include <string.h>
+#include <unistd.h>
+#include  <sys/wait.h>
+
 #include "myshell.h"
 
-#define clear() printf("\033[H\033[J") 
 
-void doheader();
-void doprompt();
+void clear() {
+    printf("\033[H\033[J");   //clear function that erases the screen
+}
 
-int main(int argc, char *argv[]){
+void executeExternal();
+
+int main(){
 	
     doheader();         //clean console and do intro wording for UI
     
     char usrIn[128];    //need to resolve possible buffer overflow
     
-    while (strcmp((const char *)usrIn, "close") != 0){
+    while (strcmp((const char *)usrIn, "myquit") != 0){
         
         doprompt();
+
         scanf("%s", usrIn);
         
         if (strcmp((const char *)usrIn, "mycd") == 0){
@@ -39,71 +43,39 @@ int main(int argc, char *argv[]){
             environm();
         } else if (strcmp((const char *)usrIn, "myhelp") == 0){
             help();
-        } else if (strcmp((const char *)usrIn, "myquit") == 0){
-            quit();
+        }  else if (strcmp((const char *)usrIn, "myquit") == 0){
+           continue;
         } else {
-           /* pid_t pid;
+           pid_t pid;
             if ((pid = fork()) < 0) {        //do normal shell commands in fork
                 perror("non-myshell command fork issue\n");
             } else if (pid == 0){
                 printf("do %s\n", usrIn);
+                executeExternal(usrIn);
             } else {
                 wait(NULL);                   //wait for fork() to complete before going on
-            }*/
+            }
         }
     }
 }
 
 
-void doheader(){
-    clear();
-    printf("\n");
-    printf("===========================================================\n");
-    printf("=Welcome to myShell.  A shell that is mine and yours too!!=\n");
-    printf("===========================================================\n");
-    printf("\n");
-    printf("***if you're interested in help at this point, type 'myhelp'\n");
-    printf("***commands: mycd, clear, mydir, myenviron, myecho, myhelp, mypause, myquit\n");
+
+void executeExternal(char thething[]){
     
-    char* myUser = getenv("USER");
-    printf("Logged in as: ");
-    echo(myUser);
-    
+    /*char    *arglist[3];
+
+    arglist[0] = thething;
+    arglist[1] = NULL;
+    arglist[2] = 0 ;
+
+    printf("%s\n", thething);
+
+    execvp( thething , arglist );*/
+
+   char *args[2] = { "./helloworld" ,NULL };
+   execvp(args[0], args);
+ 
 }
 
 
-void doprompt(){
-    char* myUser = getenv("USER");
-    printf("%s@", myUser);
-    
-    long path_max;
-    size_t size;
-    char *buf;
-    char *ptr;
-    path_max = pathconf(".", 256);
-    if (path_max == -1){
-        size = 1024;
-    }
-    else if (path_max > 10240){
-        size = 10240;
-    }
-    else {
-        size = path_max;
-    }
-    
-    for (buf = ptr = NULL; ptr == NULL; size *= 2)
-    {
-        if ((buf = realloc(buf, size)) == NULL)
-        {
-            printf("warning\n");
-        }
-        
-        ptr = getcwd(buf, size);
-        //if (ptr == NULL && errno != ERANGE)
-         if(ptr == NULL){
-             printf("warning\n");
-         }
-    }
-    printf("%s$ ", buf);
-    free (buf);
-}

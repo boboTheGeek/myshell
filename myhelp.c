@@ -12,7 +12,7 @@ File Updated:
 int help (){
     int choice;
     
-    clrSc();
+    clear();
     printf("======================================================================\n");
     printf("===============================  HELP  ===============================\n");
     printf("This is the help file where you can find out about the various aspects\n");
@@ -67,6 +67,7 @@ int help (){
             
         default:
             printf("Sorry, not a valid choice.");
+            help();
             break;
     }
     printf("\n");
