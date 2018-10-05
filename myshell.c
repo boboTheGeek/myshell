@@ -61,7 +61,7 @@ int main(){
 
 
 
-void executeExternal(char thething[]){
+void executeExternal(char *thething[]){
     
     /*char    *arglist[3];
 
