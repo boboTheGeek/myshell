@@ -1,9 +1,30 @@
-SOURCES = myshell.c mycd.c mydir.c myecho.c myenviron.c myhelp.c mypause.c myquit.c handler.c
-OBJECTS = myshell.o mycd.o mydir.o myecho.o myenviron.o myhelp.o mypause.o myquit.o handler.o
+SOURCES = myshell.c myecho.c mypause.c myquit.c handler.c splitline.c
+OBJECTS = myshell.o myecho.o mypause.o myquit.o handler.o splitline.o
 HEADERS = myshell.h
 CC = gcc
 CFLAGS = -g -Wall
-sequences :$(OBJECTS)
+CFLAGSNODEBUG = -Wall
+
+all: myshell mydir myenviron myhelp myclear mycd
+
+myshell:$(OBJECTS)
 	$(CC) $(CFLAGS) $(OBJECTS) -o myshell
+
+mydir: mydir.c
+	$(CC) $(CFLAGSNODEBUG)  -o mydir mydir.c
+
+myenviron: myenviron.c
+	$(CC) $(CFLAGSNODEBUG)  -o myenviron myenviron.c
+
+myhelp: myhelp.c
+	$(CC) $(CFLAGSNODEBUG)  -o myhelp myhelp.c
+
+myclear: myclear.c
+	$(CC) $(CFLAGSNODEBUG)  -o myclear myclear.c
+
+mycd: mycd.c
+	$(CC) $(CFLAGSNODEBUG)  -o mycd mycd.c
+
 clean:
-	rm -f *o myshell
+	rm -f *o myshell; \
+    rm  -f mydir myenviron myhelp myclear mycd

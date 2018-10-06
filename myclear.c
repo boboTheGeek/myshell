@@ -8,17 +8,7 @@ File Updated:
 
 #include <stdio.h>
 
-extern char **environ;
-
-int main (){
-    
-    
-    char *s = *environ;
-    
-    for (int i = 1; s; i++) {
-        printf("%s\n", s);
-        s = *(environ+i);
-    }
-    
+int main(){
+   	printf("\033[H\033[J");   //clear function that erases the screen
     return 0;
 }

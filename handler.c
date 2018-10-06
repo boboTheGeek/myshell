@@ -16,11 +16,10 @@ File Updated:
 #include "myshell.h"
 
 void doheader(){    //pint welcome header and user name
-    clear();
-    printf("\n");
-    printf("===========================================================\n");
-    printf("=Welcome to myShell.  A shell that is mine and yours too!!=\n");
-    printf("===========================================================\n");
+    printf("\033[H\033[J");   //clear function that erases the screen
+    printf("============================================================\n");
+    printf(" Welcome to myShell.  A shell that is actually for us all!! \n");
+    printf("============================================================\n");
     printf("\n");
     printf("***if you're interested in help at this point, type 'myhelp'\n");
     printf("***commands: mycd, myclear, mydir, myenviron, myecho, myhelp, mypause, myquit\n");
@@ -31,41 +30,56 @@ void doheader(){    //pint welcome header and user name
     
 }
 
-
-void doprompt(){                   //username and PWD right before user input
+char *doprompt(char *prompt){        //username and PWD right before user input
     
     size_t size;
     char *buf;
     char *ptr;
     long path_max;
-
     path_max = pathconf(".", 256);  //check for max path character length
     
     if (path_max == -1){             // make 1024 if problems
         size = 1024;
-    }
-    else if (path_max > 10240){     //clip
+    } else if (path_max > 10240){     //clip
         size = 10240;
-    }
-    else {
+    } else {
         size = path_max;           //or use it if it looks normal
     }
     
     /******     borrowed from a stack overflow post  */
     for (buf = ptr = NULL; ptr == NULL; size *= 2)
     {
-        if ((buf = realloc(buf, size)) == NULL){
+        if ((buf = realloc(buf, size)) == NULL) {
             printf("warning\n");
         }
         
         ptr = getcwd(buf, size);   //grab the directory [finally!]
         
-         if(ptr == NULL){
+         if(ptr == NULL) {
              printf("warning: couldn't grab current directory location.\n");
          }
     }
-
-    printf("%s@", getenv("USER"));     //print username
-    printf("%s$ ", buf);               //and path on same line
+    return buf;
     free (buf);
+}
+
+int execute(char *argv[]) {
+    int pid;
+    
+    if (argv[0] == NULL)
+        return 0;
+    if ((pid = fork()) < 0) {
+        perror("fork didn't work");
+    } else if (pid == 0) {
+        signal(SIGINT, SIG_DFL);
+        signal(SIGQUIT, SIG_DFL);
+        if(execv(argv[0], argv) != 0){  //if the binary isn't in ./ then check system
+            execvp(argv[0], argv);
+        }
+        perror("cannot execute command");
+        exit(1);
+    } else {
+        wait(NULL);
+    }
+    return 0;
 }

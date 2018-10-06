@@ -7,23 +7,30 @@ File Updated:
 */
 
 #include <stdio.h>
+#include <stdlib.h>
 #include <dirent.h> 
 #include <sys/types.h>
 
-int dir (){
+int main (int argc, char *argv[]){
 
-    struct dirent *dent;  
-    DIR *dir = opendir("."); 
-  
-    if (dir == NULL){                       //check if you can open the file
-        printf("Can't open directory" ); 
-        return 0; 
+    struct dirent *ent;
+    DIR *dir = opendir(".");                //set default behavior to current directory in case no args
+    
+    if (argc > 2){                           //scold if too many args
+        printf("can only use 1 directory argument\n");
+        exit(1);
+    } else if (argc == 2) {                  //grab directory argument and set dir
+        dir = opendir(argv[1]);
+    }
+    
+    if (dir != NULL){							//check if you opened the directory
+        while ((ent = readdir(dir)) != NULL){        //print the contents of directory
+            printf("%s\n", ent->d_name);
+        }
+    } else {
+        printf("Can't open requrested directory");
     } 
-  
-    while ((dent = readdir(dir)) != NULL){ //print the contents of directory
-            printf("%s\n", dent->d_name); 
-	}
-  
+
     closedir(dir);     
     return 0; 
 }

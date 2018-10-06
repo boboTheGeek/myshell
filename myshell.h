@@ -1,11 +1,18 @@
 
 void doheader();
-void doprompt();
+char *doprompt();
 int cd();
-int dir();
-int environm();
 int echo(char* echoString);
-int help();
-int pause();
 int quit();
-void clear();
+
+void executeExternal();
+
+char *next_cmd(FILE *fp);
+
+int execute(char *argv[]);
+
+void *emalloc(size_t);
+void *erealloc(void *, size_t);
+
+char **splitline(char *line);
+void freelist(char **list);
