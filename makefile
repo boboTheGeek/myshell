@@ -5,7 +5,7 @@ CC = gcc
 CFLAGS = -g -Wall
 CFLAGSNODEBUG = -Wall
 
-all: myshell mydir myenviron myhelp myclear mycd
+all: myshell mydir myenviron myhelp myclear mycd myecho
 
 myshell:$(OBJECTS)
 	$(CC) $(CFLAGS) $(OBJECTS) -o myshell
@@ -24,6 +24,9 @@ myclear: myclear.c
 
 mycd: mycd.c
 	$(CC) $(CFLAGSNODEBUG)  -o mycd mycd.c
+
+mycd: myecho.c
+	$(CC) $(CFLAGSNODEBUG)  -o myecho myecho.c
 
 clean:
 	rm -f *o myshell; \

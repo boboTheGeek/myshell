@@ -22,8 +22,6 @@
 
 #include "myshell.h"
 
-
-
 void fatal(char *s1, char *s2, int n) {
     fprintf(stderr, "Error: %s, %s\n", s1, s2);
     exit(n);
@@ -50,7 +48,7 @@ char *next_cmd(FILE *fp) {
             if (bufspace == 0)
                 buf = emalloc(BUFSIZ);
             else
-                buf = erealloc(buf, bufspace + BUFSIZ);
+                buf = erealloc(buf, bufspace + BUFSIZ);     //BUFSIZ set in stdio.h
             bufspace += BUFSIZ;
         }
         

@@ -12,17 +12,18 @@
 #include <sys/types.h>
 
 int main (int argc, char *argv[]){
-    char cwd[256];
+    char *cwd;
     if (argc > 2){                           //scold if too many args
         printf("can only use 1 directory argument\n");
-        exit(1);
+        exit(0);
     } else if (argc == 2) {                  //change dir to target
         if (chdir(argv[1]) != 0) {
             perror("chdir() to <path> failed");
         } else {
-            if (getcwd(cwd, sizeof(cwd)) == NULL)
+            if ((cwd = getcwd(cwd, sizeof(cwd))) == NULL)
                 perror("getcwd() error");
             else
+                setenv("PWD", cwd, 0);      //set environment variable for PWD
                 printf("current working directory is: %s\n", cwd);
         }
     } else {

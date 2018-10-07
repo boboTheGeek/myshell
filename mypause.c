@@ -8,8 +8,12 @@ File Updated:
 
 #include <stdio.h>
 
+#include "myshell.h"
+
 int pause(){
-    int x;
-    scanf("%d", &x);
+    int i = 1;
+    do {
+        printf("press enter to continue");
+    }while((i = getchar()) == 1);
     return 0;
 }

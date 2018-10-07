@@ -7,21 +7,35 @@ File Updated:
 */
 
 #include <stdio.h>
-#include "myshell.h"
+#include <unistd.h>
+#include <stdlib.h>
+#include <string.h>
 
 int main (int argc, char *argv[]){
+
     int choice;
+    char *topic[5];
+    topic[0] = "less";
+    topic[1] = "-d";
+    topic[2] = "+/$";
+    topic[3] = "README.md";
+    topic[4] = NULL;
+    
+    char *targetTopic= "";
     
     if(argc > 2){
-   
-        perror("select only one topic please");
-   
+        
+        printf("Select only one topic please.\n");
+        exit(0);
+    
     } else if (argc == 2){
         
         printf("\033[H\033[J");   //clear function that erases the screen
-        char *topic = argv[1];
-        printf("Topic: %c", *topic);
-
+        char intermediate[32];
+        strcpy(intermediate, topic[2]);
+        strcat(intermediate, argv[1]);
+        topic[2] = intermediate;
+        
     } else {
         
         printf("\033[H\033[J");   //clear function that erases the screen
@@ -37,52 +51,41 @@ int main (int argc, char *argv[]){
         
         switch (choice) {
             case 0:
-                
-    			FILE *rm;
-    			rm = fopen("README.md", "r");
-    			int c;
-    			while (1) {
-    				c = fgetc(rm);
-    				if (feof(rm)) {
-    					break;
-    				}
-    				printf("%c", c);
-    			}
-
-    			fclose(rm);
+                topic[2] = "+/# myshell";
                 break;
             case 1:
-                printf("mycd");
+                topic[2] = "+/$mycd";
                 break;
             case 2:
-                printf("2");
+                topic[2] = "+/$myclr";
                 break;
             case 3:
-                printf("3");
+                topic[2] = "+/$mydir";
                 break;
             case 4:
-                printf("4");
+                topic[2] = "+/$myecho";
                 break;
             case 5:
-                printf("5");
+                topic[2] = "+/$myenviron";
                 break;
             case 6:
-                printf("6");
+                topic[2] = "+/$myhelp";
                 break;
             case 7:
-                printf("7");
+                topic[2] = "+/$mypause";
                 break;
             case 8:
-                printf("8");
+                topic[2] = "+/$myquit";
                 break;
                 
             default:
                 printf("Sorry, not a valid choice.");
                 break;
         }
-        //printf("\n");
-        //pause();
-        return 0;
     }
+    
+    printf("%s", targetTopic);
+    execvp("less", topic);
+    return 0;
 }
 

@@ -26,7 +26,7 @@ void doheader(){    //pint welcome header and user name
     
     char *myUser = getenv("USER");
     printf("Logged in as: ");
-    echo(myUser);
+    printf("%s", myUser);
     
 }
 
@@ -63,7 +63,7 @@ char *doprompt(char *prompt){        //username and PWD right before user input
     free (buf);
 }
 
-int execute(char *argv[]) {
+int execute(char *argv[], const char *shell_loc) {
     int pid;
     
     if (argv[0] == NULL)
@@ -71,8 +71,12 @@ int execute(char *argv[]) {
     if ((pid = fork()) < 0) {
         perror("fork didn't work");
     } else if (pid == 0) {
-        signal(SIGINT, SIG_DFL);
+        signal(SIGINT, SIG_DFL); //reset system so that SIGINT causes a
+                                    //termination at any place in our program
         signal(SIGQUIT, SIG_DFL);
+
+        setenv("PARENT", shell_loc, 1); //set env var for parent
+        
         if(execv(argv[0], argv) != 0){  //if the binary isn't in ./ then check system
             execvp(argv[0], argv);
         }

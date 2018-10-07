@@ -9,8 +9,11 @@ File Updated:
 #include <stdio.h>
 
 
-int echo(char* echoString){
+int main(int argc, char *echoString[]){
     
+    while(echoString){
+        printf("%s ", echoString++);
+    }
     printf("%s\n", echoString);
     return 0;
     

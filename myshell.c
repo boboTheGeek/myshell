@@ -12,22 +12,16 @@ File Updated:
 #include <string.h>
 #include <unistd.h>
 #include <signal.h>
-#include <sys/wait.h>
 
 #include "myshell.h"
 
-
-
 int main(){
     
-	char cwd[256];
-    const char *new_value = getcwd(cwd, sizeof(cwd));
-    setenv("SHELL", new_value, 1);
+	char shellwd[255];
+    const char *shell_loc = getcwd(shellwd, sizeof(shellwd));
+    setenv("SHELL", shell_loc, 1);
     
     char *cmdin, **arglist;
-
-    signal(SIGINT, SIG_IGN);
-    signal(SIGQUIT, SIG_IGN);
     
     doheader();         //clean console and do intro wording for UI
     while ((cmdin = next_cmd(stdin)) != NULL){
@@ -35,7 +29,7 @@ int main(){
             if (strcmp((const char *)arglist[0], "myquit") == 0){
                 exit(0);
             }else{
-                execute(arglist);
+                execute(arglist, shell_loc);
                 freelist(arglist);
             }
         }
