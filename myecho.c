@@ -8,13 +8,14 @@ File Updated:
 
 #include <stdio.h>
 
-
 int main(int argc, char *echoString[]){
-    
-    while(echoString){
-        printf("%s ", echoString++);
+
+    for (int i= 1; i <= sizeof(*echoString); i++){    //grab the input and iterate through
+        printf("%s ", echoString[i]);                  //printing strings
     }
-    printf("%s\n", echoString);
+    
+    printf("\n");              //  newline
+    
     return 0;
     
 }

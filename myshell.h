@@ -1,7 +1,7 @@
 
 void doheader();
 char *doprompt();
-int cd();
+int mcd(char *arglist[]);
 //int echo(char* echoString);
 int quit();
 

@@ -22,17 +22,25 @@ int main(){
     setenv("SHELL", shell_loc, 1);
     
     char *cmdin, **arglist;
+    const char *ovrrdnCMDs[] = {"cd", "quit", "echo"};
+    for (int i = 0; i < sizeof(ovrrdnCMDs); i++){
+        printf("%s, ", ovrrdnCMDs[i]);
+    }
     
     doheader();         //clean console and do intro wording for UI
     while ((cmdin = next_cmd(stdin)) != NULL){
         if ((arglist = splitline(cmdin)) != NULL){
             if (strcmp((const char *)arglist[0], "myquit") == 0){
                 exit(0);
+            }else if (strcmp((const char *)arglist[0], "mycd") == 0){
+                mcd(arglist);
+                
             }else{
                 execute(arglist, shell_loc);
                 freelist(arglist);
             }
         }
+        
     }
     return 0;
 }

@@ -11,8 +11,9 @@
 #include <unistd.h>
 #include <sys/types.h>
 
-int main (int argc, char *argv[]){
-    char *cwd;
+int mcd (char *argv[]){
+    char *cwd = NULL;
+    int argc = 2;   ///testing.........
     if (argc > 2){                           //scold if too many args
         printf("can only use 1 directory argument\n");
         exit(0);
@@ -23,8 +24,9 @@ int main (int argc, char *argv[]){
             if ((cwd = getcwd(cwd, sizeof(cwd))) == NULL)
                 perror("getcwd() error");
             else
-                setenv("PWD", cwd, 0);      //set environment variable for PWD
-                printf("current working directory is: %s\n", cwd);
+                setenv("PWD", cwd, 1);      //set environment variable for PWD; overwrite
+                printf("current working directory [getcwd()] is: %s,  ", cwd);
+                printf("getenv(\"PWD\") is: %s\n", getenv("PWD"));
         }
     } else {
         chdir("/bin");

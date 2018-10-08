@@ -8,14 +8,13 @@ File Updated:
 
 #include <stdio.h>
 
-extern char **environ;
+extern char **environ;         //grab environment variables from OS
 
 int main (){
-    
-    
+
     char *s = *environ;
     
-    for (int i = 1; s; i++) {
+    for (int i = 1; s; i++) {  //iterate through list and print each
         printf("%s\n", s);
         s = *(environ+i);
     }

@@ -1,4 +1,3 @@
-
 /***************************************************************************************
  *    Title: Understanding Unix/Linux Programming - chapter 9
  *    Author: Bruce Molay
