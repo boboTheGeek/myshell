@@ -23,10 +23,11 @@ int mcd (char *argv[]){
         } else {
             if ((cwd = getcwd(cwd, sizeof(cwd))) == NULL)
                 perror("getcwd() error");
-            else
+            else {
                 setenv("PWD", cwd, 1);      //set environment variable for PWD; overwrite
                 printf("current working directory [getcwd()] is: %s,  ", cwd);
                 printf("getenv(\"PWD\") is: %s\n", getenv("PWD"));
+            }
         }
     } else {
         chdir("/bin");
