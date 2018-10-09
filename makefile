@@ -1,5 +1,5 @@
-SOURCES = myshell.c mypause.c myquit.c handler.c splitline.c mycd.c
-OBJECTS = myshell.o mypause.o myquit.o handler.o splitline.o mycd.o
+SOURCES = myshell.c mypause.c handler.c splitline.c mycd.c executer.c prompt.c
+OBJECTS = myshell.o mypause.o handler.o splitline.o mycd.o executer.c prompt.o
 HEADERS = myshell.h
 CC = gcc
 CFLAGS = -g -Wall

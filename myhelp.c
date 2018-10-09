@@ -14,16 +14,13 @@ File Updated:
 int main (int argc, char *argv[]){
 
     int choice;
-    char *topic[5];
-    topic[0] = "less";
-    topic[1] = "-d";
-    topic[2] = "+/$";
-    topic[3] = "README.md";
-    topic[4] = NULL;
+    char *topic[4];                //set up args for less command
+    topic[0] = "less";             //less used in place of more since it's newer
+    topic[1] = "+/# ";
+    topic[2] = "README.md";
+    topic[3] = NULL;
     
-    char *targetTopic= "";
-    
-    if(argc > 2){
+    if(argc > 2){                  //don't allow more than one search term
         
         printf("Select only one topic please.\n");
         exit(0);
@@ -31,12 +28,12 @@ int main (int argc, char *argv[]){
     } else if (argc == 2){
         
         printf("\033[H\033[J");   //clear function that erases the screen
-        char intermediate[32];
-        strcpy(intermediate, topic[2]);
-        strcat(intermediate, argv[1]);
-        topic[2] = intermediate;
+        char top[32];
+        strcpy(top, topic[1]);     //append the input string to pattern prefix
+        strcat(top, argv[1]);
+        topic[1] = top;
         
-    } else {
+    } else {                       //if the user didn't give an arg, bring up a menu to choose from
         
         printf("\033[H\033[J");   //clear function that erases the screen
         printf("======================================================================\n");
@@ -51,41 +48,39 @@ int main (int argc, char *argv[]){
         
         switch (choice) {
             case 0:
-                topic[2] = "+/# myshell";
+                topic[1] = "+/# myshell";
                 break;
             case 1:
-                topic[2] = "+/$mycd";
+                topic[1] = "+/# mycd";
                 break;
             case 2:
-                topic[2] = "+/$myclr";
+                topic[1] = "+/# myclr";
                 break;
             case 3:
-                topic[2] = "+/$mydir";
+                topic[1] = "+/# mydir";
                 break;
             case 4:
-                topic[2] = "+/$myecho";
+                topic[1] = "+/# myecho";
                 break;
             case 5:
-                topic[2] = "+/$myenviron";
+                topic[1] = "+/# myenviron";
                 break;
             case 6:
-                topic[2] = "+/$myhelp";
+                topic[1] = "+/# myhelp";
                 break;
             case 7:
-                topic[2] = "+/$mypause";
+                topic[1] = "+/# mypause";
                 break;
             case 8:
-                topic[2] = "+/$myquit";
+                topic[1] = "+/# myquit";
                 break;
-                
             default:
                 printf("Sorry, not a valid choice.");
                 break;
         }
     }
-    
-    printf("%s", targetTopic);
-    execvp("less", topic);
+
+    execvp("less", topic);         //call myhelp executible and pass args
     return 0;
 }
 

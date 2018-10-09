@@ -10,11 +10,9 @@ File Updated:
 
 int main(int argc, char *echoString[]){
 
-    for (int i= 1; i <= sizeof(*echoString); i++){    //grab the input and iterate through
-        printf("%s ", echoString[i]);                  //printing strings
-    }
-    
-    printf("\n");              //  newline
+	printf("%s ", echoString[1] + 7);                  //print string, clip off the front "myecho "
+                                                       //since it's part of echoString[1]
+    printf("\n");
     
     return 0;
     

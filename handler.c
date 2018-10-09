@@ -8,10 +8,9 @@ File Updated:
 
 #include <stdio.h>
 #include <stdlib.h>
-#include <dirent.h>
-#include <string.h>
-#include <unistd.h>
-
+//#include <dirent.h>
+//#include <string.h>
+//#include <unistd.h>
 
 #include "myshell.h"
 
@@ -26,10 +25,10 @@ void doheader(){    //pint welcome header and user name
     
     char *myUser = getenv("USER");
     printf("Logged in as: ");
-    printf("%s", myUser);
+    printf("%s \n", myUser);
     
 }
-
+/*
 char *doprompt(char *prompt){        //username and PWD right before user input
     
     size_t size;
@@ -46,7 +45,7 @@ char *doprompt(char *prompt){        //username and PWD right before user input
         size = path_max;           //or use it if it looks normal
     }
     
-    /******     borrowed from a stack overflow post  */
+    // ******     borrowed from a stack overflow post
     for (buf = ptr = NULL; ptr == NULL; size *= 2)
     {
         if ((buf = realloc(buf, size)) == NULL) {
@@ -86,4 +85,4 @@ int execute(char *argv[], const char *shell_loc) {
         wait(NULL);
     }
     return 0;
-}
+}*/

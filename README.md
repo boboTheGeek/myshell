@@ -8,28 +8,28 @@ myshell, is a terminal program written in c that "suppliments" the normal BASH s
 
 
 
-    non-myshell commands
+non-myshell commands
     
 How does myshell interact with BASH commands?
 It should be noted that myshell acts as a suppliment to the BASH shell.  This means that myshell features are overlapping with some of the BASH ones.  While myshell is running, the myshell implementation of that feature will be used while the BASH implementation won't.  However, for commands that are not implemented in myshell but are in BASH, those commands will be executed in BASH as a fork process.  Then control will be returned to the myshell process once the fork's execution is complete.
 
 
 
-      $mycd <directory>
+# mycd <directory>
       
 Supports the ability for the user to change the current default directory to <directory>. When this command is entered into the shell, adding the argument <directory> [eg "/User/bobby"], will change to that directory.  If the directory does not exist then the user is provided feedback to indicate so.  After carrying out this command, the environment variable keeping track of the present working directory [PWD] will be updated to reflect the new active directory.
 Usage: at any point where myshell is awaiting input from the user she can type "mycd" followed by a space  and then a directory path location such as "/bin/hogwarts_farm/" followed by hitting enter.  After running this command the current/present working directory will be changed to that location OR feedback is provided to indicate no such location exists.
 
 
 
-      $myclr
+# myclr
       
 In certain cases it may be desirable for the user to clear the previous command from the screen.  The clear the screen command allows the user to remove all of the text from the terminal window.  When this command is executed, the terminal screen is cleared and the user prompt is displayed (displaying username and current folder location)
 Usage:  at any point where myshell is awaiting input from the user she can type "myclr" and the clear function will be carried out
 
 
 
-      $mydir <directory>
+# mydir <directory>
       
 Supports the ability for the user to display the contents of a specific folder.  On it's execution, this command lists the contents of directory <directory> where <directory> is the directory location entered as a parameter.  The function will list the files and folders in the directory of question.  If no target <directory> parameter is entered, the command will return the currents of the current directory.
 Usage:   example "mydir /bin/" (without quotes).  At any point where myshell is awaiting input form the user she can type "mydir" followed by a space and a directory path location such as "/bin/".
@@ -38,7 +38,7 @@ Usage:   example "mydir /bin/" (without quotes).  At any point where myshell is 
 
 
 
-      $myenviron
+# myenviron
       
 Environment strings are a series of values that are stored by the system to describe certain attributes of the sytem.  These attributes are stored this way so that they are easily accessible for various programs when they run.  A few examples of environment strings are:
 "HOME=/Users/bobby"              [the path to the users home directory]
@@ -48,14 +48,14 @@ Usage: at any point where myshell is awaiting input from the user she can type "
 
 
 
-      $myecho <comment>
+# myecho <comment>
       
 Invoking the echo command along with an argument <comment> will result in that comment being printed on the display of the terminal window.  At the end of the comment a new line action will be taken so the next command will start on that next line (rather than right after the echo comment).  Whits space characters will reduce multiple spaces and or tabs into a single spaceon the display followed by a new line (multiple spaces/tabs may be reduced to a single space)
 Usage: at any point where myshell is awaiting input from the user she can type something like "myecho lemmings are very cute" and the terminal will display "lemmings are very cute" followed by a carriage return.
 
 
 
-      $myhelp <topic>
+# myhelp <topic>
       
 This command will serve as a similar feature to this manual in that it can be used to display the user manual with an explanation of the functionality of the various features of myshell.   However, it can be invoked from the command line and will display the instructions in the terminal window itself.  In addition using the more filter, the user can add an argument after "myhelp" command in order to bring up a specific topic.  For example typing the command "myhelp myenviron" will bring up the help section for the myenviron command.
 Usage: at any point where myshell is awiting input from the user she can type either "myhelp" to observe the full help catalogue or "myhelp" followed by a space then a <topic> per the list below followed by enter.  The appropriate help content will then be displayed on the terminal screen.
@@ -64,14 +64,14 @@ mycd, myclr, mydir, myenviron, myecho, myhelp, mypause, myquit, non-myshell comm
 
 
 
-        $mypause
+# mypause
         
 During the display of large amounts of text, there will be some circumstances where there is too much text to be displayed in the terminal window at one time.  The pause operation allows the myshell shell to select an amount of the text that can be displayed at once without overlapping to unseen areas of the terminal window.  To view the remainder of the text the user can press the "Enter" button and the screen will continue to display more of the text.
 Usage: simply press "Enter" when more of the desired text is to be displayed on the terminal screen
 
 
 
-        $myquit
+# myquit
         
 In order to exit the myshell shell, when the user is presented with any input prompt she can enter "myquit" followed by the hitting enter and the myshell application will quit, the terminal will return to BASH.
 
