@@ -10,12 +10,19 @@ File Updated:
 #include <stdlib.h>
 #include <unistd.h>
 #include <signal.h>
+#include <string.h>
 #include <sys/wait.h>
 
 #include "myshell.h"
 
 int execute(char *argv[], const char *shell_loc) {
     int pid;
+    
+    char location[255];                   //make absolute location path
+    strcpy(location, shell_loc);              //so executibles work after mycd
+    strcat(location, "/");
+    strcat(location, argv[0]);
+    
     
     if (argv[0] == NULL)
         return 0;
@@ -26,8 +33,8 @@ int execute(char *argv[], const char *shell_loc) {
         signal(SIGINT, SIG_DFL);            //reset system so that signals have default behavior
         signal(SIGQUIT, SIG_DFL);
         setenv("PARENT", shell_loc, 1);    //set env var for parent
-        
-        if(execv(argv[0], argv) != 0){     //if the binary isn't in ./ then check system
+       
+        if(execv(location, argv) != 0){     //if the binary isn't in ./ then check system
             execvp(argv[0], argv);
         }
         perror("cannot execute command");
