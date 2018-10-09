@@ -44,9 +44,9 @@ int main(){
                 execute(arglist, shell_loc);
                 freelist(arglist);
             }
-        
+        free(cmdin);
         }
-       free(cmdin);
+       
     }
     return 0;
 }

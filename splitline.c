@@ -84,7 +84,7 @@ char ** splitline(char *line) {
     char *start;
     int len;
     
-    if (line == NULL)
+    if (line == NULL || strcmp(line, "") == 0)
         return NULL;
     
     args = emalloc(BUFSIZ);

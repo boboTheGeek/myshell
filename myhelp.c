@@ -16,7 +16,7 @@ int main (int argc, char *argv[]){
     int choice;
     char *topic[4];                //set up args for less command
     topic[0] = "less";             //less used in place of more since it's newer
-    topic[1] = "+/# ";
+    topic[1] = "+/### ";
     topic[2] = "README.md";
     topic[3] = NULL;
     
@@ -48,31 +48,31 @@ int main (int argc, char *argv[]){
         
         switch (choice) {
             case 0:
-                topic[1] = "+/# myshell";
+                topic[1] = "+/### myshell";
                 break;
             case 1:
-                topic[1] = "+/# mycd";
+                topic[1] = "+/### mycd";
                 break;
             case 2:
-                topic[1] = "+/# myclr";
+                topic[1] = "+/### myclear";
                 break;
             case 3:
-                topic[1] = "+/# mydir";
+                topic[1] = "+/### mydir";
                 break;
             case 4:
-                topic[1] = "+/# myecho";
+                topic[1] = "+/### myecho";
                 break;
             case 5:
-                topic[1] = "+/# myenviron";
+                topic[1] = "+/### myenviron";
                 break;
             case 6:
-                topic[1] = "+/# myhelp";
+                topic[1] = "+/### myhelp";
                 break;
             case 7:
-                topic[1] = "+/# mypause";
+                topic[1] = "+/### mypause";
                 break;
             case 8:
-                topic[1] = "+/# myquit";
+                topic[1] = "+/### myquit";
                 break;
             default:
                 printf("Sorry, not a valid choice.");
