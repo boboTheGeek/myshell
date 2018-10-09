@@ -1,16 +1,16 @@
 
-*\.o
-
-*\.exe
-
 myshellWorkspace.xcworkspace
 
-myshell
-
+*\.o
+*\.exe
 \.DS_Store
-
+ *.dSYM
 *.plist
 
+myshell
 myhelp
-
+myenviron
 myecho
+myclear
+mydir
+makefile
