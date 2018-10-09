@@ -2,7 +2,6 @@
 void doheader();
 char *doprompt();
 int mcd(char *arglist[]);
-//void executeExternal();
 char *next_cmd(FILE *fp);
 int execute(char *argv[], const char *shell_loc);
 void *emalloc(size_t);

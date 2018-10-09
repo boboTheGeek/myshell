@@ -8,3 +8,9 @@ myshellWorkspace.xcworkspace
 myshell
 
 \.DS_Store
+
+*.plist
+
+myhelp
+
+myecho
