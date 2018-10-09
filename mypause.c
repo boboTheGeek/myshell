@@ -14,6 +14,6 @@ int pause(){
     int i = 1;
     do {
         printf("press enter to continue");
-    }while((i = getchar()) == 1);
+    } while ((i = getchar()) == 1);
     return 0;
 }
