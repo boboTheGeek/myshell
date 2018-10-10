@@ -3,7 +3,6 @@
  Programmer:   Rob Miles
  Professor:    Dr.    Lee
  File Created: September 28, 2018
- File Updated:
  */
 
 #include <stdio.h>

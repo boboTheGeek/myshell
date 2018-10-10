@@ -1,3 +1,10 @@
+/*    CSC521 Operating system
+ Project1 - A MyShell Program
+ Programmer:   Rob Miles
+ Professor:    Dr.    Lee
+ File Created: September 28, 2018
+ */
+
 //handler.c
 void doheader();
 int block_commands(char **args);

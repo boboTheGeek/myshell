@@ -1,3 +1,10 @@
+#CSC521 Operating system
+#Project1 - A MyShell Program
+#Programmer:   Rob Miles
+#Professor:    Dr.    Lee
+#File Created: September 28, 2018
+
+
 SOURCES = myshell.c mypause.c handler.c splitline.c mycd.c executer.c prompt.c
 OBJECTS = myshell.o mypause.o handler.o splitline.o mycd.o executer.o prompt.o
 HEADERS = myshell.h
