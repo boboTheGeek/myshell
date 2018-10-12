@@ -9,5 +9,5 @@ File Created: September 28, 2018
 
 int main(){
    	printf("\033[H\033[J");   //clear function that erases the screen
-    return 0;
+    return 0;                 //return successfully
 }

@@ -10,9 +10,9 @@ File Created: September 28, 2018
 #include "myshell.h"
 
 int pause(){
-    int i = 1;
-    do {
+    int i = 1;      //this won't actually store anything since we'll exit 
+    do {            //use while loop to queue up your prompt
         printf("press enter to continue");
-    } while ((i = getchar()) == 1);
-    return 0;
+    } while ((i = getchar()) == 1);  //continue after you see an ENTER
+    return 0;       //after you see enter, can close this process successfully
 }

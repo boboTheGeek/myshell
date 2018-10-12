@@ -11,9 +11,9 @@ int main(int argc, char *echoString[]){
 
 	printf("%s ", echoString[1] + 7);                  //print string, clip off the front "myecho "
                                                        //since it's part of echoString[1]
-    printf("\n");
+    printf("\n");                                      //print a new line before returning
     
-    return 0;
+    return 0;                                          //return successfully
     
 }
 
