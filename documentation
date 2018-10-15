@@ -4,12 +4,17 @@ Programmer:   Rob Miles
 Professor:    Dr. Lee
 File Created: October 10, 2018
 
-Info block
 ======================
-
 Project Description
 ======================
 
+[description block]
+
+    A shell is a terminal/text based program/application that takes text based user inputs and performs or executes some actions based on the command provided by the user.  Fully featured shells, like BASH or tcsh, can execute reasonably complex instructions that run macros or executables to perform various tasks on the user's computer.  For example, the shell can be used to navigate through the files system, list the contents of various folders, open files for editing (there are even file editors whose user interfaces are implemented in the terminal window rather than a separate GUI window), create directories, rename files/folders, move files/folders, deleting files/folders as well as displaying help for the various features/commands.
+
+    Myshell is an example of an implementation of a terminal program written in c that emulates the functionality of a normal shell.  Since it runs in the terminal, a user's interaction consists of text based commands that the user inputs into the program followed by the associated response from the system.  Generally speaking, the results of the response from the system should have a corresponding response in the terminal window for the user to observe.   The myshell application has a smaller set of functions compared to the other shells.  Supported commands are: 1) mycd - a command used to change the currently active directory 2) myclear - which clears the terminal screen 3) myenviron - which prints out the system environment variables 4) myecho - which displays any comment on the screen which is input by the user 5) myhelp - which displays text explaining the myshell functions 6) mypause - that holds large text strings on the screen so the user can scroll though it 7) myquit - which quits the shell.  It should be noted that myshell acts as a supplement to the BASH/tcsh shell.  This means that myshell features are overlapping with some of the BASH/tcsh ones.  While myshell is running, the myshell implementation of that feature will be used while the BASH implementation won't.  However, for commands that are not implemented in myshell but are in BASH, those commands will be executed in BASH as a fork process.  Then control will be returned to the myshell process once the fork's execution is complete.  The myshell application shows how this functionality, typically performed by a system's shell, can be implemented in c.
+
+======================
 Algorithm
 ======================
 
@@ -115,37 +120,37 @@ Algorithm
 
 5.    end
 
-
+======================
 Analysis
 ======================
 
-Alrorithm:                                    	Analysis:
+Alrorithm:                                 Analysis:
 
 1. Start
 1.1 declare *cmdin, 
-	**arglist, shell_location              	char *cmdin, **arglist, shell_location[255]
+	**arglist, shell_location          char *cmdin, **arglist, shell_location[255]
 1.2 shell_location =                    
-	currentWorkingDirectory()              	shell_location = /Users/rm7322/myshell
+	currentWorkingDirectory()          shell_location = /Users/rm7322/myshell
 1.3 set environment variable 
-	SHELL=shell_location                   	envt var "SHELL=/Users/rm7322/myshell"
+	SHELL=shell_location               envt var "SHELL=/Users/rm7322/myshell"
 1.4 set os signals QUIT and INTERRUPT 
-	= default behavior                     	interrupt/quit signals allowed and default
+	= default behavior                 interrupt/quit signals allowed and default
 
 2.  print shell header                   
-2.1 print "\033[H\033[J"                   	output: terminal screen erased
-2.2 print welcomeText                      	output: "Welcome to myShell"
+2.1 print "\033[H\033[J"                   output: terminal screen erased
+2.2 print welcomeText                      output: "Welcome to myShell"
                                                    "***if you're interested in help, type 'myhelp'"
-2.3       set uName = environment 			uName = rm7322
+2.3       set uName = environment 	   uName = rm7322
           variables("USER")
-2.4       print userName           			output: "Logged in as: rm7322"
+2.4       print userName           	   output: "Logged in as: rm7322"
                                                 
 3.  while((userInput=getInput(stdin) != NULL) 
 3.1   getInput(stdin)                              
-3.1.1 print ~current working directory$     output: "~/Users/rm7322/myshell$ " 
-													process waits
+3.1.1 print ~current working directory$    output: "~/Users/rm7322/myshell$ " 
+					   process waits
 
 
-		user enters text=>>>>>>>>>>>		Input:  "mycd /bin"  ENTER
+user enters text=>>>>>>>>>>>		   Input:  "mycd /bin"  ENTER
 
 3.2  userInput = getUserInput(<input>)
 3.2.1 declare c, buf                       c=buf=NULL 
@@ -168,7 +173,7 @@ Alrorithm:                                    	Analysis:
 
 3.2.4  buf = append('\0')                  buf="mycd /bin\0"
 3.2.5  return buf
-3.2	 userInput = buf                       userInput="mycd /bin\0"
+3.2	 userInput = buf                   userInput="mycd /bin\0"
 3.3  arguments= \                          
      splitAtDelimiters(userInput)
 3.3.1   set i = j= c = 0; arguments[]      i=c=j=0, arguments[]=""
@@ -182,7 +187,7 @@ Alrorithm:                                    	Analysis:
                                            j=1,c="c";arguments[0]="myc"
                                            j=2,c="d";arguments[0]="mycd"
                                            j=3,c=" ";arguments[0]="mycd"; i=1 
-                                           j=4,c="/";arguments[0]="/"
+                                           j=4,c="/";arguments[1]="/"
                                            j=5,c="b";arguments[1]="/b"
                                            j=6,c="i";arguments[1]="/bi"               
                                            j=7,c="n";arguments[1]="/bin"
@@ -192,8 +197,8 @@ Alrorithm:                                    	Analysis:
 
 3.1.a   if arguments != NULL &&            agruments={"mycd","/bin", NULL} 
 3.1.b   if arguments[0] != "cd"            both statements = TRUE
-		|| "quit" || "echo" || "ls" 
-		|| "env" || "clear" || "help"
+	|| "quit" || "echo" || "ls" 
+	|| "env" || "clear" || "help"
 
 3.1.1   if (arguments[0] == "myquit")      FALSE
 3.1.2   if (arguments[0] == "mycd")        TRUE
@@ -204,10 +209,10 @@ Alrorithm:                                    	Analysis:
 3.4.2.1.2.1 changeDirectory(arguments[1])  "working directory changed to "/bin"
 3.4.2.1.3 set environment variable \       *environment PWD=/bin
 	       PWD=getcwd()
-3.4.2.1.4   print CWD, PWD                 "current working directory is:    \
+3.4.2.1.4   print CWD, PWD                 "current working directory is:    
                                               /bin; PWD: /bin"
 
-		user enters text=>>>>>>>>>>>		Input:  "mypause"  ENTER
+user enters text=>>>>>>>>>>>		   Input:  "mypause"  ENTER
 
 3.2  userInput = getUserInput(<input>)
 3.2.1 declare c, buf                       c=buf=NULL 
@@ -228,7 +233,7 @@ Alrorithm:                                    	Analysis:
 
 3.2.4  buf = append('\0')                  buf="mypause\0"
 3.2.5  return buf
-3.2	 userInput = buf                       userInput="mypause\0"
+3.2	 userInput = buf                   userInput="mypause\0"
 3.3  arguments= \                          
      splitAtDelimiters(userInput)
 3.3.1   set i = j= c = 0; arguments[]      i=c=j=0, arguments[]=""
@@ -250,15 +255,18 @@ Alrorithm:                                    	Analysis:
 
 3.1.a   if arguments != NULL &&            agruments={"mypause",NULL} 
 3.1.b   if arguments[0] != "cd"            both statements = TRUE
-		|| "quit" || "echo" || "ls" 
-		|| "env" || "clear" || "help"
+        || "quit" || "echo" || "ls" 
+        || "env" || "clear" || "help"
 
 3.1.1   if (arguments[0] == "myquit")      FALSE
 3.1.2   if (arguments[0] == "mycd")        FALSE
 3.1.2   if (arguments[0] == "mypause")     TRUE
+3.4.3.1   pause()
+3.4.3.1.1   prompt "press enter"           [output:]  "press enter"
+                                           [input:]   ENTER
+3.4.3.1.2 return 0                         return success         
 
-
-		user enters text=>>>>>>>>>>>		Input:  "myecho hello there"  ENTER
+user enters text=>>>>>>>>>>>               Input:  "myecho hello there"  ENTER
 
 3.2  userInput = getUserInput(<input>)
 3.2.1 declare c, buf                       c=buf=NULL 
@@ -276,11 +284,11 @@ Alrorithm:                                    	Analysis:
                                            ...
                                            c="e";buf="myecho hello there" 
                                            c="\n";buf="myecho hello there"
-                                             break                                   
+                                           break                                   
 
 3.2.4  buf = append('\0')                  buf="myecho hello there\0"
 3.2.5  return buf
-3.2	 userInput = buf                       userInput="myecho hello there\0"
+3.2	 userInput = buf                   userInput="myecho hello there\0"
 3.3  arguments= \                          
      splitAtDelimiters(userInput)
 3.3.1   set i = j= c = 0; arguments[]      i=c=j=0, arguments[]=""
@@ -291,30 +299,144 @@ Alrorithm:                                    	Analysis:
 3.3.2.3   if(userInput[c] == " " )         false
 3.3.2.3.1   i++ 
                                            j=0,c="y";arguments[0]="my"
-                                           j=1,c="p";arguments[0]="mye"
-                                           j=2,c="a";arguments[0]="myec"
-                                           j=3,c="u";arguments[0]="myech"
-                                           j=4,c="s";arguments[0]="myecho"
-                                           j=5,c=" ";arguments[1]="myecho"; i++
+                                           j=1,c="e";arguments[0]="mye"
+                                           j=2,c="c";arguments[0]="myec"
+                                           j=3,c="h";arguments[0]="myech"
+                                           j=4,c="o";arguments[0]="myecho"
+                                           j=5,c=" ";arguments[1]="myecho"; i=1
+                                           j=6,c="h";arguments[1]="h"
+                                           j=7,c="e";arguments[1]="he"
+                                           j=8,c="l";arguments[1]="hel"
+                                           j=9,c="l";arguments[1]="hell"
+                                           j=10,c="0";arguments[1]="hello"
+                                           j=11,c=" ";arguments[1]="hello"; i=2
+                                           ...
+                                           j=17,c="e";arguments[2]="there"
+                                           j=18,c="\0"
                                            break   
-3.3.3  args[c++] = NULL;                   arguments[4]=NULL
-3.3.4  return arguments                    {"mypause",NULL}
+3.3.3  args[c++] = NULL;                   arguments[3]=NULL
+3.3.4   return arguments                   {"myecho","hello","there",NULL}
 
 3.1.a   if arguments != NULL &&            agruments={"myecho", "hello", "there",NULL} 
 3.1.b   if arguments[0] != "cd"            both statements = TRUE
-		|| "quit" || "echo" || "ls" 
-		|| "env" || "clear" || "help"
+        || "quit" || "echo" || "ls" 
+        || "env" || "clear" || "help"
 
 3.1.1   if (arguments[0] == "myquit")      FALSE
 3.1.2   if (arguments[0] == "mycd")        FALSE
 3.1.3   if (arguments[0] == "mypause")     FALSE
 3.1.3   if (arguments[0] == "myecho")      TRUE
+3.1.3.1    arguments[1] = userInput        arguments[1]="myecho hello there\0"
 
-		user enters text=>>>>>>>>>>>		Input:  "myquit"  ENTER
+3.4.5.1 execute(arguments, shell_location)
+3.4.5.1.1 location = shell_location \
+          + "/" + argv[0]                  shell_location="/Users/rm7322/myshell/myecho"
+3.4.5.1.2 set os signals QUIT/INTERRUPT \
+          = ignore                         os interrupt and stop signal ignored
+3.4.5.1.3 fork() process
+3.4.5.1.4 if fork() failed print 
+            "fork failed" and exit(1)      FALSE
+3.4.5.1.4 if process is child process
+3.4.5.1.4.1 set os sig QUIT/INTERRUPT 
+             = default behavior            os interrupt and stop signal ON for child
+3.4.5.1.4.1 set environment var 
+            "PARENT=shell_location"        PARENT="/Users/rm7322/myshell"
+
+3.4.5.1.4.2 execute(arguments)             [output:] "hello there"
+
+3.4.5.1.4.3 if still alive perror/exit(1)  FALSE
+3.4.5.1.5 else parent process 
+3.4.5.1.5.1 wait(childExit == 0)
+3.4.5.1.5.2 set os sig QUIT/INTERRUPT 
+            = default behavior             os interrupt and stop signals ON for parent
+3.4.5.1.5  return 0                        return success
+ 
+
+user enters text=>>>>>>>>>>>		   Input:  "mydir /bin"  ENTER
 
 3.2  userInput = getUserInput(<input>)
 3.2.1 declare c, buf                       c=buf=NULL 
 3.2.2 while ((c = nextcharacter(<input>)). c="m"
+              != EOF)
+3.2.2.1   if (c == '\n').                  false
+3.2.2.1.1    break while
+3.2.2.2   buf = append(c)                  buf="m"
+3.2.3	if (c == EOF && position == 0)     false
+3.2.3.1   return NULL;
+                                           c="y";buf="my"
+                                           c="d";buf="myd"
+                                           c="i";buf="mydi"
+                                           c="r"; buf="mydir" 
+                                           c=" "; buf="mydir "   
+                                           c="/"; buf="mydir /" 
+                                           c="b"; buf="mydir /b"
+                                           c="i"; buf="mydir /bi"
+                                           c="n"; buf="mydir /bin"
+                                           c="\n"; buf="mydir /bin"  
+                                           break                                   
+
+3.2.4  buf = append('\0')                  buf="mydir /bin\0"
+3.2.5  return buf
+3.2	 userInput = buf                   userInput="mydir /bin\0"
+3.3  arguments= \                          
+     splitAtDelimiters(userInput)
+3.3.1   set i = j= c = 0; arguments[]      i=c=j=0, arguments[]=""
+3.3.2   while (c= userInput[j] != " ")     c='m'    
+3.3.2.1   arguments[i] += \                arguments[0]='m'
+          getcharacter(userInput[c])
+3.3.2.2	  c++                              c='y'
+3.3.2.3   if(userInput[c] == " " )         false
+3.3.2.3.1   i++ 
+                                           j=0,c="y";arguments[0]="my"
+                                           j=1,c="d";arguments[0]="myd"
+                                           j=2,c="i";arguments[0]="mydi"
+                                           j=3,c="r";arguments[0]="mydir"
+                                           j=4,c=" ";arguments[0]="mydir"; i=1 
+                                           j=5,c="/";arguments[1]="/"
+                                           j=6,c="b";arguments[1]="/b"
+                                           j=7,c="i";arguments[1]="/bi"               
+                                           j=8,c="n";arguments[1]="/bin"
+                                           break   
+3.3.3  args[c++] = NULL;                   arguments[2]=NULL
+3.3.4  return arguments                    {"mydir","/bin", NULL}
+
+3.1.a  if arguments != NULL &&             agruments={"mydir","/bin", NULL} 
+3.1.b  if arguments[0] != "cd"             both statements = TRUE
+	|| "quit" || "echo" || "ls" 
+	|| "env" || "clear" || "help"
+3.1.1   if (arguments[0] == "myquit")      FALSE
+3.1.2   if (arguments[0] == "mycd")        FALSE
+3.1.3   if (arguments[0] == "mypause")     FALSE
+3.1.3   if (arguments[0] == "myecho")      FALSE
+
+3.4.5.1 execute(arguments, shell_location)
+3.4.5.1.1 location = shell_location \
+          + "/" + argv[0]                  shell_location="/Users/rm7322/myshell/mydir"
+3.4.5.1.2 set os signals QUIT/INTERRUPT \
+          = ignore                         os interrupt and stop signal ignored
+3.4.5.1.3 fork() process
+3.4.5.1.4 if fork() failed print 
+            "fork failed" and exit(1)      FALSE
+3.4.5.1.4 if process is child process
+3.4.5.1.4.1 set os sig QUIT/INTERRUPT 
+             = default behavior            os interrupt and stop signal ON for child
+3.4.5.1.4.1 set environment var 
+            "PARENT=shell_location"        PARENT="/Users/rm7322/myshell"
+
+3.4.5.1.4.2 execute(arguments)             [output:] **listing of files/folders in /bin directory
+
+3.4.5.1.4.3 if still alive perror/exit(1)  FALSE
+3.4.5.1.5 else parent process 
+3.4.5.1.5.1 wait(childExit == 0)
+3.4.5.1.5.2 set os sig QUIT/INTERRUPT 
+            = default behavior             os interrupt and stop signals ON for parent
+3.4.5.1.5  return 0                        return success
+
+user enters text=>>>>>>>>>>>               Input:  "myquit"  ENTER
+
+3.2  userInput = getUserInput(<input>)
+3.2.1 declare c, buf                       c=buf=NULL 
+3.2.2 while ((c = nextcharacter(<input>))  c="m"
               != EOF)
 3.2.2.1   if (c == '\n').                  false
 3.2.2.1.1    break while
@@ -330,9 +452,9 @@ Alrorithm:                                    	Analysis:
 
 3.2.4  buf = append('\0')                  buf="myquit\0"
 3.2.5  return buf
-3.2	 userInput = buf                       userInput="myquit\0"
+3.2  userInput = buf                       userInput="myquit\0"
 
-3.3  arguments= \                          
+3.3  arguments=  \
      splitAtDelimiters(userInput)
 3.3.1   set i = 0; c = 0; arguments[]      i=c=0, arguments[]=""
 3.3.2   while (c= userInput[j] != " ")     c='m'    
@@ -351,10 +473,10 @@ Alrorithm:                                    	Analysis:
 3.3.3  args[c++] = NULL;                   arguments[1]=NULL
 3.3.4  return arguments                    
 
-3.1.a   if arguments != NULL &&             agruments={"myquit","NULL"} 
-3.1.b   if arguments[0] != "cd"             both statements = TRUE
-		|| "quit" || "echo" || "ls" 
-		|| "env" || "clear" || "help"
+3.1.a   if arguments != NULL &&            agruments={"myquit","NULL"} 
+3.1.b   if arguments[0] != "cd"            both statements = TRUE
+        || "quit" || "echo" || "ls" 
+        || "env" || "clear" || "help"
 
 3.1.1   if (arguments[0] == "myquit")      arguments[0] == "myquit" is TRUE
 3.1.1.1   exit(0)                          ./myshell exits, 0 = success
