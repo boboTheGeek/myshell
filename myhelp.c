@@ -16,7 +16,7 @@ int main (int argc, char *argv[]){
     char *topic[4];                //set up args for less command
     topic[0] = "less";             //<less> used in place of more since it's newer
     topic[1] = "+/### ";           //starting of our search filter string
-    topic[2] = "README";           //file containing readme text to search
+    topic[2] = "readme";           //file containing readme text to search
     topic[3] = NULL;               //end of command parameters
     
     if(argc > 2){                  //don't allow more than one search term
