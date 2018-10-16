@@ -14,8 +14,10 @@ File Created: September 28, 2018
 #include "myshell.h"
 
 char *doprompt(char *prompt){        //username and PWD right before user input
-                            /******    pattern borrowed from IEEE manpage  */
-                            //http://pubs.opengroup.org/onlinepubs/9699919799/functions/getcwd.html
+ /******    pattern borrowed from:
+[1] http://pubs.opengroup.org/onlinepubs/9699919799/functions/getcwd.html
+    The Open Group Base Specifications Issue 7, 2018 edition
+    IEEE Std 1003.1-2017 (Revision of IEEE Std 1003.1-2008)*/
     size_t size;
     char *buf;
     char *ptr;

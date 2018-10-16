@@ -1,21 +1,19 @@
-/*    CSC521 Operating system
+/*
+ CSC521 Operating system
  Project1 - A MyShell Program
  Programmer:   Rob Miles
  Professor:    Dr.    Lee
  File Created: September 28, 2018
  */
 
-/***************************************************************************************
- *    Title: Understanding Unix/Linux Programming - chapter 9
+/***********************************************************************
+ [2]  Title: Understanding Unix/Linux Programming - chapter 9
  *    Author: Bruce Molay
  *    Date: 2003
  *    Code version: small-shell version 4
  *    Availability: http://wps.prenhall.com/esm_molay_UNIXProg_1/
  *
- ***************************************************************************************/
-
-
-
+ **********************************************************************/
 
 /**
  * command reading and parsing functions for smsh
@@ -46,7 +44,6 @@ char *next_cmd(FILE *fp) {
     int bufspace = 0;
     int pos = 0;
     int c;
-    
     printf("myShell~%s$ ", doprompt());
     while ((c = getc(fp)) != EOF) {
         // need space ?
