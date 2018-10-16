@@ -12,25 +12,27 @@
 
 int mcd (char *argv[]){
     char *cwd = NULL;
-    int argc = 2;   ///testing.........
-    if (argc > 2){                           //scold if too many args
+    int argc = 0;
+
+    while(argv[argc++]!=NULL);              //count the arguments
+
+    if (argc > 3){                           //scold if too many args
         printf("can only use 1 directory argument\n");
-        exit(0);
-    } else if (argc == 2) {                  //change dir to target
-        if (chdir(argv[1]) != 0) {
-            perror("chdir() to <path> failed");
-        } else {
-            if ((cwd = getcwd(cwd, sizeof(cwd))) == NULL)
-                perror("getcwd() error");
+        return 1;                           //return unsuccessful
+    } else if (argc == 3) {                 //if there are the right number of args
+        if (chdir(argv[1]) != 0) {          //try to change directory to arg[1] param
+            perror("chdir() to <path> failed");  //if fails then report a problem
+        } else {                            //but if it's good
+            if ((cwd = getcwd(cwd, sizeof(cwd))) == NULL)  //grab the new (same) working directory
+                perror("getcwd() error");  //complain if the verifiction fails
             else {
                 setenv("PWD", cwd, 1);      //set environment variable for PWD; overwrite
                 printf("current working directory [getcwd()] is: %s,  ", cwd);
-                printf("getenv(\"PWD\") is: %s\n", getenv("PWD"));
+                printf("getenv(\"PWD\") is: %s\n", getenv("PWD"));  //print where you now are
             }
         }
     } else {
-        chdir("/bin");
+        printf("no change\n");             //otherwise, you probably didn't enter a location
     }
-    
-    return 0;
+    return 0;                              //return success
 }

@@ -1,4 +1,5 @@
-/*    CSC521 Operating system
+/*    
+CSC521 Operating system
 Project1 - A MyShell Program
 Programmer:   Rob Miles
 Professor:    Dr.    Lee
@@ -16,30 +17,34 @@ File Created: September 28, 2018
 
 int execute(char *argv[], const char *shell_loc) {
     int pid;
-    
-    char location[255];                   //make absolute location path
-    strcpy(location, shell_loc);              //so executibles work after mycd
-    strcat(location, "/");
-    strcat(location, argv[0]);
-    
-    
-    if (argv[0] == NULL)
-        return 0;
-    if ((pid = fork()) < 0) {
-        perror("fork didn't work");
-    } else if (pid == 0) {
-        
-        signal(SIGINT, SIG_DFL);            //reset system so that signals have default behavior
-        signal(SIGQUIT, SIG_DFL);
-        setenv("PARENT", shell_loc, 1);    //set env var for parent
-       
-        if(execv(location, argv) != 0){     //if the binary isn't in ./ then check system
-            execvp(argv[0], argv);
-        }
-        perror("cannot execute command");
+    char location[255];                     //make variable to store path
+    strcpy(location, shell_loc);            //grab myshell path location from args
+    strcat(location, "/");                  //append trailing slash
+    strcat(location, argv[0]);              //path of executibles saved to args for execution
+
+    signal(SIGINT, SIG_IGN);                //block [parent] interrupt so only child stops if interrupted
+    signal(SIGQUIT, SIG_IGN);               //block [parent] interrupt so only child stops if stop signal
+
+    if ((pid = fork()) < 0) {               //fork here, check if fails at creating the fork
+        perror("fork didn't work");         //complain if it failed
         exit(1);
-    } else {
-        wait(NULL);
+    
+    } else if (pid == 0) {                  //if it succeeded and this is the child process
+        signal(SIGINT, SIG_DFL);            //reset system so child signals have default interrupt behavior
+        signal(SIGQUIT, SIG_DFL);           //reset system so child signals have default stop behavior
+        setenv("PARENT", shell_loc, 1);     //set env var for path of PARENT process
+        if(execv(location, argv) != 0){     //run the executible if it's in the ./ same dir as myshell (our subcommands)
+            if(execvp(argv[0], argv) != 0){          //otherwise, try to run command from any PATH env var location
+                printf("command not found");       //notify if command not found
+            }
+        }
+        perror("cannot execute command");   //if exec() didn't succed and exit you had a problem so complain
+        exit(1);                            //exit and signify failure
+    
+    } else {                                //otherwise you're the parent process
+        wait(NULL);                         //wait for the child to complete it's execution to continue here
+        signal(SIGINT, SIG_DFL);            //reset system so child signals have default interrupt behavior
+        signal(SIGQUIT, SIG_DFL);           //reset system so child signals have default stop behavior  
     }
-    return 0;
+    return 0;                               //indicate successful completion
 }

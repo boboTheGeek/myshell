@@ -11,29 +11,26 @@ File Created: September 28, 2018
 
 #include "myshell.h"
 
-void doheader(){                      //pint welcome header and user name
-    printf("\033[H\033[J");           //clear function that erases the screen
+void doheader(){                                      //pint welcome header and user name
+    printf("\033[H\033[J");                           //clear function that erases the screen
     printf("============================================================\n");
-    printf(" Welcome to myShell.  A shell that is actually for us all!! \n");
+    printf(" Welcome to myShell         -- type 'myhelp' for assistance \n");
     printf("============================================================\n");
-    printf("\n");
-    printf("***if you're interested in help at this point, type 'myhelp'\n");
-    printf("***commands: mycd, myclear, mydir, myenviron, myecho, myhelp, mypause, myquit\n");
     
-    char *myUser = getenv("USER");   //grab the username from environment variables
-    printf("Logged in as: ");        //prompt
-    printf("%s \n", myUser);         //add user name to prompt
+    char *myUser = getenv("USER");                    //grab the username from environment variables
+    printf("Logged in as: ");                         //prompt
+    printf("%s \n", myUser);                          //add user name to prompt
 }
 
 
-int block_commands(char **args){
-    const char *ovrrdnCMDs[7] = { "cd", "quit", "echo", "ls", "env", "clear", "help" };         //commands that will be overridden
-    for (int i = 0; i < 7; i++){      //loop for each of the blocked commands
-        if (strcmp((const char *)args[0], ovrrdnCMDs[i]) == 0){  //if user entered one that matches the list
+int block_commands(char **args){                      //these are commands that will be overridden and blocked
+    const char *ovrrdnCMDs[7] = { "cd", "quit", "echo", "ls", "env", "clear", "help" };         
+    for (int i = 0; i < 7; i++){                      //loop for each of the blocked commands
+        if (strcmp((const char *)args[0], ovrrdnCMDs[i]) == 0){  //if user entered a string matching the list
             printf("command disabled, instead try one of: \n");
             printf("mycd, myclear, mydir, myenviron, myecho, myhelp, mypause, myquit\n");
-            return 1;                 //return 1 if it was one of those commands [blocks continuation]
+            return 1;                                 //return 1 if it was one of those commands [blocks continuation]
         }
     }
-    return 0;                         //return 0 if no matches [allows continuation]
+    return 0;                                         //return 0 if no matches [allows continuation]
 }

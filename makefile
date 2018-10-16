@@ -5,13 +5,13 @@
 #File Created: September 28, 2018
 
 
-SOURCES = myshell.c mypause.c handler.c splitline.c mycd.c executer.c prompt.c
-OBJECTS = myshell.o mypause.o handler.o splitline.o mycd.o executer.o prompt.o
+SOURCES = myshell.c handler.c splitline.c mycd.c executer.c prompt.c
+OBJECTS = myshell.o handler.o splitline.o mycd.o executer.o prompt.o
 HEADERS = myshell.h
 CC = gcc
 CFLAGS = -g -Wall
 
-all: myshell mydir myenviron myhelp myclear myecho
+all: myshell mydir myenviron myhelp myclear myecho mypause
 
 myshell:$(OBJECTS)
 	$(CC) $(CFLAGS) $(OBJECTS) -o myshell
@@ -28,8 +28,8 @@ myhelp: myhelp.c
 myclear: myclear.c
 	$(CC) $(CFLAGS)  -o myclear myclear.c
 
-mycd: mycd.c
-	$(CC) $(CFLAGS)  -o mycd mycd.c
+mypause: mypause.c
+	$(CC) $(CFLAGS)  -o mypause mypause.c
 
 myecho: myecho.c
 	$(CC) $(CFLAGS)  -o myecho myecho.c

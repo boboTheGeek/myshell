@@ -25,5 +25,3 @@ void freelist(char **list);
 //executer.c
 int execute(char *argv[], const char *shell_loc);
 
-//mypause.c
-int pause();

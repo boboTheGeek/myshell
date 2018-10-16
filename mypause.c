@@ -9,7 +9,7 @@ File Created: September 28, 2018
 
 #include "myshell.h"
 
-int pause(){
+int main(){
     int i = 1;      //this won't actually store anything since we'll exit 
     do {            //use while loop to queue up your prompt
         printf("press enter to continue");
