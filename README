@@ -166,15 +166,6 @@ disabled by myshell
 
 
 
-References
-====================
-
-[1] getcwd(), http://pubs.opengroup.org/onlinepubs/9699919799/functions/getcwd.html,
-The Open Group Base Specifications Issue 7, 2018 edition, 
-IEEE Std 1003.1-2017 (Revision of IEEE Std 1003.1-2008)
-
-[2] Molay, Bruce. Understanding Unix/Linux Programming, A guide to Theory and Practice. 2003. Chapter 9 source code
-
 
 
 
